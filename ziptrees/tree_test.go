@@ -31,3 +31,21 @@ func TestInsert(t *testing.T) {
 		}
 	}
 }
+
+func TestDelete(t *testing.T) {
+	tree := New()
+	for i := 0; i < 100; i++ {
+		tree.Insert(i, "value")
+		tree.Delete(i)
+	}
+	for i := 0; i < 100; i++ {
+		tree.Insert(i, "value")
+	}
+	for i := 0; i < 100; i++ {
+		tree.Delete(i)
+	}
+	res := tree.traverse()
+	if len(res) != 0 {
+		t.Errorf("expected length of keys is 0, but got %d", len(res))
+	}
+}

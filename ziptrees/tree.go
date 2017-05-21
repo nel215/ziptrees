@@ -40,6 +40,42 @@ func insert(n *Node, x *Node) *Node {
 	return n
 }
 
+func zip(x, y *Node) *Node {
+	if x == nil {
+		return y
+	}
+	if y == nil {
+		return x
+	}
+	if x.Rank < y.Rank {
+		y.Left = zip(x, y.Left)
+		return y
+	} else {
+		x.Right = zip(x.Right, y)
+		return x
+	}
+}
+
+func delete_node(n *Node, k int) *Node {
+	if k == n.Key {
+		return zip(n.Left, n.Right)
+	}
+	if k < n.Key {
+		if n.Left != nil && k == n.Left.Key {
+			n.Left = zip(n.Left.Left, n.Left.Right)
+		} else {
+			delete_node(n.Left, k)
+		}
+	} else {
+		if n.Right != nil && k == n.Right.Key {
+			n.Right = zip(n.Right.Left, n.Right.Right)
+		} else {
+			delete_node(n.Right, k)
+		}
+	}
+	return n
+}
+
 type ZipTree struct {
 	Root *Node
 }
@@ -61,6 +97,10 @@ func newRank() int32 {
 func (zt *ZipTree) Insert(k int, v string) {
 	x := &Node{k, v, nil, nil, newRank()}
 	zt.Root = insert(zt.Root, x)
+}
+
+func (zt *ZipTree) Delete(k int) {
+	zt.Root = delete_node(zt.Root, k)
 }
 
 func New() *ZipTree {
