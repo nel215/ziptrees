@@ -12,13 +12,6 @@ type Node struct {
 	Rank  int32
 }
 
-func rank(n *Node) int32 {
-	if n == nil {
-		return 0
-	}
-	return n.Rank
-}
-
 func insert(n *Node, x *Node) *Node {
 	if n == nil {
 		return x
@@ -62,8 +55,7 @@ func popcount(x int32) int32 {
 
 func newRank() int32 {
 	t := rand.Int31()
-	rank := popcount((t & -t) - 1)
-	return rank
+	return popcount((t & -t) - 1)
 }
 
 func (zt *ZipTree) Insert(k int, v string) {
