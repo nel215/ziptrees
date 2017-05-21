@@ -1,7 +1,6 @@
 package ziptrees
 
 import (
-	"fmt"
 	"math/rand"
 )
 
@@ -74,17 +73,4 @@ func (zt *ZipTree) Insert(k int, v string) {
 
 func New() *ZipTree {
 	return &ZipTree{nil}
-}
-
-func Traverse(n *Node) {
-	if n == nil {
-		return
-	}
-	Traverse(n.Left)
-	fmt.Println(n.Key, n.Value)
-	Traverse(n.Right)
-}
-
-func (t *ZipTree) Traverse() {
-	Traverse(t.Root)
 }
